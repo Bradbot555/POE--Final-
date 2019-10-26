@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Team 1
+  - Team 2
+  - Wizards
   layers:
   - Default
   - TransparentFX
