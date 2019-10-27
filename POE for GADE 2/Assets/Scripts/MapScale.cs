@@ -10,7 +10,9 @@ public class MapScale : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.localScale = new Vector3(10,1,10);
+        length = 10;
+        width = 10;
+        transform.localScale = new Vector3(length,1,width);
     }
     public void AdjustSizeX (float newLength)
     {

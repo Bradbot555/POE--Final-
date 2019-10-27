@@ -24,6 +24,5 @@ public class BallFactory : MonoBehaviour
     {
         Vector3 position = Vector3.left * Random.Range(-1f, 1f);
         GameObject ballCopy = Instantiate(ballTemplate,position,Quaternion.identity);
-        
     }
 }

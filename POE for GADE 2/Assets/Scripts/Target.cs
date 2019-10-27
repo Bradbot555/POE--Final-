@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 namespace GADE6112___Task3 {
-
     class Target : MonoBehaviour{
         protected int x;
         protected int y;
