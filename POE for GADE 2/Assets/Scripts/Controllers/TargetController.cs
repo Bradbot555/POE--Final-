@@ -6,18 +6,22 @@ using UnityEngine.AI;
 public class TargetController : MonoBehaviour
 {
     UnitSetter unitSetter;
+    UnitSpawner unitSpawner;
+    private int faction;
     private bool inRange = false;
     public float lookRadius = 20f;
-    public float stopDistance;
     private float distance;
     public float speed = 0.1f;
     public GameObject Target;
-    public List<GameObject> Targets = new List<GameObject>();
+    public List<GameObject> Targets;
     // Start is called before the first frame update
     void Start()
     {
+        Targets = unitSpawner.Targets;
+        faction = unitSetter.faction;
         speed = unitSetter.speed;
         FindTarget();
+        _ = Target.GetComponent<UnitSetter>().faction;
     }
 
     // Update is called once per frame
@@ -27,7 +31,8 @@ public class TargetController : MonoBehaviour
     private void FixedUpdate()
     {
         FindTarget();
-        if (unitSetter.range == distance)
+        Move();
+        /*if (unitSetter.range == distance)
         {
             inRange = true;
         }
@@ -35,15 +40,22 @@ public class TargetController : MonoBehaviour
         {
             Attack();
         }
-        else
-        Move();
-
+        else */
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            Debug.Log(Targets.Count);
+            foreach (GameObject go in Targets)
+            {
+                Debug.Log(go.name);
+            }
+        }
     }
 
     private void Move()
     {
-        if (Target == null)
+        if (Target == null || Target.Equals(null))
         {
+
             Targets.Clear();
             FindTarget();
         }
@@ -54,7 +66,7 @@ public class TargetController : MonoBehaviour
         }
         else if (distance > lookRadius)
         {
-            Vector3 direction;
+            // Vector3 direction;
             int wander = Random.Range(0, 4);
             if (wander == 0)
             {
@@ -81,59 +93,68 @@ public class TargetController : MonoBehaviour
     }
     void FindTarget()
     {
-        if (this.tag == "Team 1")
-        {
-            Targets.Add(GameObject.FindGameObjectWithTag("Wizards"));
-            Targets.Add(GameObject.FindGameObjectWithTag("Team 2"));
-        }
-        else if (tag == "Team 2")
-        {
-            Targets.Add(GameObject.FindGameObjectWithTag("Wizards"));
-            Targets.Add(GameObject.FindGameObjectWithTag("Team 1"));
-        }
-        else
-        {
-            Targets.Add(GameObject.FindGameObjectWithTag("Team 1"));
-            Targets.Add(GameObject.FindGameObjectWithTag("Team 2"));
-        }
-        
+        Vector3 rndPos = new Vector3(Random.Range(-5, 5), Random.Range(0, 0), Random.Range(-5, 5));
         float lowestDist = lookRadius;
-        foreach (GameObject target in Targets)
+        /*  if (this.tag == "Team 1") //Checks the team the current game object is on
+          {
+              Targets.Add(GameObject.FindGameObjectWithTag("Wizards"));
+              Targets.Add(GameObject.FindGameObjectWithTag("Team 2"));
+          }
+          else if (this.tag == "Team 2")
+          {
+              Targets.Add(GameObject.FindGameObjectWithTag("Wizards"));
+              Targets.Add(GameObject.FindGameObjectWithTag("Team 1"));
+          }
+          else if (this.tag == "Wizards")
+          {
+              Targets.Add(GameObject.FindGameObjectWithTag("Team 1"));
+              Targets.Add(GameObject.FindGameObjectWithTag("Team 2"));
+          } */
+
+        for (int x = Targets.Count - 1; x >= 0; x--) //loops through the List for targets from end of list to begnning as we may remove items
         {
-            distance = Vector3.Distance(target.transform.position, transform.position);
-            if (Targets.Count == 0)
+            GameObject unit = Targets[x];
+            GetDistance(unit); //Calling Get Distance method so we know the distance between this unit and the temp
+
+            if (Target != null || Target.Equals(Targets[x])) //If the target is already set then break out of loop
             {
                 break;
             }
-            if (target == null)
+            else
+            if (unit.GetComponent<UnitSetter>().faction == this.faction)
             {
-                Targets.Remove(target);
-                Target = Targets[1];
+                Targets.RemoveAt(x);
             }
-            if (target == this.gameObject)
+            else
+            if (Targets[x] == null || Targets[x].Equals(null)) //If the temp unit is equal to nothing then remove it from list
             {
-                Targets.Remove(target);
-                Target = Targets[1];
+                Targets.Remove(Targets[x]);
+                if (unit == null || unit.Equals(null))
+                {
+                    Targets.Remove(unit);
+                }
             }
-            if (target.CompareTag(tag))
+            else
+            if (Targets[x] == this.gameObject) //Checks to see if the object is trying to get itself
             {
-                Targets.Remove(target);
-                Target = Targets[1];
+                Targets.Remove(Targets[x]);
             }
-            if (distance < lowestDist)
+            else
+            if (distance < lowestDist) //Sets the target finally
             {
                 lowestDist = distance;
-                Target = target;
-            }
-            if (Targets[0] == null)
-            {
-                Target = Targets[1];
+                Target = unit;
             }
         }
+
         Targets.Clear();
     }
+    private void GetDistance(GameObject tempUnit)
+    {
+        distance = Vector3.Distance(tempUnit.transform.position, transform.position);//Gets the distance between current unit and targeted
+    }
 
-    void FaceTarget()
+    void FaceTarget() //Will not roll and try to face the target which is currently locked on
     {
         Vector3 direction = (Target.transform.position - Target.transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
@@ -143,4 +164,5 @@ public class TargetController : MonoBehaviour
     {
 
     }
+
 }

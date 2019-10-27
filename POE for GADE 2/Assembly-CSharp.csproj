@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\BallFactory.cs" />
     <Compile Include="Assets\Scripts\CameraControl.cs" />
     <Compile Include="Assets\Scripts\Controllers\TargetController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\TargetSphereController.cs" />
     <Compile Include="Assets\Scripts\Controllers\UnitSetter.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\MapNumbers.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Assets\Scripts\RangedUnit.cs" />
     <Compile Include="Assets\Scripts\Target.cs" />
     <Compile Include="Assets\Scripts\Unit.cs" />
+    <Compile Include="Assets\Scripts\UnitSpawner.cs" />
     <Compile Include="Assets\Scripts\WizardUnit.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/bradi_000/Documents/GitHub/POE/POE for GADE 2/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
