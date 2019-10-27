@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 1755636336234552224}
   - component: {fileID: 4948892625715169773}
   - component: {fileID: 1823152607470657905}
-  - component: {fileID: 4100516028589674890}
   - component: {fileID: 4029925538767634055}
   - component: {fileID: -6695079828461464906}
+  - component: {fileID: -7468354263736756090}
   m_Layer: 0
   m_Name: Unit
   m_TagString: Untagged
@@ -119,18 +119,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &4100516028589674890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7124618880941543334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8746077b7bb380149b03e1c9187a0f9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &4029925538767634055
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -145,7 +133,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &-6695079828461464906
 MonoBehaviour:
@@ -161,5 +149,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   faction: 0
-  speed: 0
   type: 0
+  damage: 0
+  speed: 0
+  range: 0
+  isDead: 0
+--- !u!114 &-7468354263736756090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7124618880941543334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09a8f515b56ee3947a77589df8141cab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lookRadius: 20
+  stopDistance: 0
+  speed: 0.1
+  Target: {fileID: 0}
+  Targets: []
