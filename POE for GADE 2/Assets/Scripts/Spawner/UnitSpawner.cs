@@ -15,6 +15,14 @@ public class UnitSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (MapX < 10 || MapX == 0)
+        {
+            MapX = 10;
+        }
+        if (MapY < 10 || MapX == 0)
+        {
+            MapY = 10;
+        }
         MapX = NumberHolder.MapX / 2;
         MapY = NumberHolder.MapY / 2;
         //Vector3 rndPos = new Vector3(Random.Range(-5f, 5f), Random.Range(1, 1), Random.Range(-5f, 5f));

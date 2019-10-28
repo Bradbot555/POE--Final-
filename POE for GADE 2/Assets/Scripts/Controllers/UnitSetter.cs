@@ -7,6 +7,8 @@ public class UnitSetter : MonoBehaviour
     MeshRenderer meshRenderer;
     Material[] materials;
     Material material;
+
+    public static GameObject unit = null;
     public static UnitSetter instance;
     public int health, faction, type, damage;
     public float speed, range;

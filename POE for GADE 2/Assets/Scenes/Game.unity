@@ -267,6 +267,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 890022265}
+  - component: {fileID: 890022264}
   m_Layer: 0
   m_Name: BuildingSpawner
   m_TagString: Untagged
@@ -274,6 +275,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &890022264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 890022263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1169fa3a675d364cae775b73b6c6561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 8337704999983075364, guid: 3318e7aad8e9afb4ca77a0cfef7e8b14, type: 3}
+  Targets: []
+  MapX: 0
+  MapY: 0
 --- !u!4 &890022265
 Transform:
   m_ObjectHideFlags: 0

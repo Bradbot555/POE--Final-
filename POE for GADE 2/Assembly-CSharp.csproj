@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\BallFactory.cs" />
     <Compile Include="Assets\Scripts\CameraControl.cs" />
+    <Compile Include="Assets\Scripts\Controllers\BuildingSetter.cs" />
     <Compile Include="Assets\Scripts\Controllers\TargetController.cs" />
     <Compile Include="Assets\Scripts\Controllers\TargetSphereController.cs" />
     <Compile Include="Assets\Scripts\Controllers\UnitSetter.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Assets\Scripts\MapSet.cs" />
     <Compile Include="Assets\Scripts\NumberHolder.cs" />
     <Compile Include="Assets\Scripts\PlayGame.cs" />
+    <Compile Include="Assets\Scripts\Spawner\BuildingSpawner.cs" />
     <Compile Include="Assets\Scripts\Spawner\UnitSpawner.cs" />
     <Compile Include="Assets\Scripts\Target.cs" />
     <Reference Include="Unity.Timeline.Editor">

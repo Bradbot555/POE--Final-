@@ -51,8 +51,6 @@ public class TargetController : MonoBehaviour
     {
         if (gameObj == null || gameObj.Equals(null))
         {
-
-            Targets.Clear();
             FindTarget();
         }
         else if (distance <= lookRadius)
@@ -66,6 +64,7 @@ public class TargetController : MonoBehaviour
             int wander = Random.Range(0, 4);
             if (wander == 0)
             {
+                transform.Translate(Vector3.forward * Time.deltaTime);
             }
             if (wander == 1)
             {
@@ -89,7 +88,6 @@ public class TargetController : MonoBehaviour
     }
     void FindTarget()
     {
-        Vector3 rndPos = new Vector3(Random.Range(-5, 5), Random.Range(0, 0), Random.Range(-5, 5));
         float lowestDist = lookRadius;
 
         for (int x = Targets.Count - 1; x >= 0; x--) //loops through the List for targets from end of list to begnning as we may remove items
