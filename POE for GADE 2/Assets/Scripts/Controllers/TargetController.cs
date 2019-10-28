@@ -5,25 +5,29 @@ using UnityEngine.AI;
 
 public class TargetController : MonoBehaviour
 {
-    UnitSetter unitSetter;
-    UnitSpawner unitSpawner;
+    public static UnitSetter unitSetter;
+    public static UnitSpawner unitSpawner;
     private int faction;
     private bool inRange = false;
     public float lookRadius = 20f;
     private float distance;
     public float speed = 0.1f;
-    public GameObject Target;
-    public List<GameObject> Targets;
+    public GameObject gameObj;
+    public List<GameObject> Targets = new List<GameObject>();
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start()
     {
-        Targets = unitSpawner.Targets;
-        faction = unitSetter.faction;
-        speed = unitSetter.speed;
+        Debug.Log(UnitSpawner.instance.Targets.Count);
+        for (int i = 0; i < UnitSpawner.instance.Targets.Count; i++)
+        {
+            Targets.Add(UnitSpawner.instance.Targets[i]);
+            Debug.Log(Targets[i]);
+        }
+        yield return new WaitForEndOfFrame();
+        faction = UnitSetter.instance.faction;
+        speed = UnitSetter.instance.speed;
         FindTarget();
-        _ = Target.GetComponent<UnitSetter>().faction;
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -41,19 +45,11 @@ public class TargetController : MonoBehaviour
             Attack();
         }
         else */
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            Debug.Log(Targets.Count);
-            foreach (GameObject go in Targets)
-            {
-                Debug.Log(go.name);
-            }
-        }
     }
 
     private void Move()
     {
-        if (Target == null || Target.Equals(null))
+        if (gameObj == null || gameObj.Equals(null))
         {
 
             Targets.Clear();
@@ -61,7 +57,7 @@ public class TargetController : MonoBehaviour
         }
         else if (distance <= lookRadius)
         {
-            transform.position = Vector3.MoveTowards(transform.position, Target.transform.position, speed);
+            transform.position = Vector3.MoveTowards(transform.position, gameObj.transform.position, speed);
             FaceTarget();
         }
         else if (distance > lookRadius)
@@ -95,32 +91,12 @@ public class TargetController : MonoBehaviour
     {
         Vector3 rndPos = new Vector3(Random.Range(-5, 5), Random.Range(0, 0), Random.Range(-5, 5));
         float lowestDist = lookRadius;
-        /*  if (this.tag == "Team 1") //Checks the team the current game object is on
-          {
-              Targets.Add(GameObject.FindGameObjectWithTag("Wizards"));
-              Targets.Add(GameObject.FindGameObjectWithTag("Team 2"));
-          }
-          else if (this.tag == "Team 2")
-          {
-              Targets.Add(GameObject.FindGameObjectWithTag("Wizards"));
-              Targets.Add(GameObject.FindGameObjectWithTag("Team 1"));
-          }
-          else if (this.tag == "Wizards")
-          {
-              Targets.Add(GameObject.FindGameObjectWithTag("Team 1"));
-              Targets.Add(GameObject.FindGameObjectWithTag("Team 2"));
-          } */
 
         for (int x = Targets.Count - 1; x >= 0; x--) //loops through the List for targets from end of list to begnning as we may remove items
         {
             GameObject unit = Targets[x];
             GetDistance(unit); //Calling Get Distance method so we know the distance between this unit and the temp
 
-            if (Target != null || Target.Equals(Targets[x])) //If the target is already set then break out of loop
-            {
-                break;
-            }
-            else
             if (unit.GetComponent<UnitSetter>().faction == this.faction)
             {
                 Targets.RemoveAt(x);
@@ -143,11 +119,9 @@ public class TargetController : MonoBehaviour
             if (distance < lowestDist) //Sets the target finally
             {
                 lowestDist = distance;
-                Target = unit;
+                gameObj = unit;
             }
         }
-
-        Targets.Clear();
     }
     private void GetDistance(GameObject tempUnit)
     {
@@ -156,7 +130,7 @@ public class TargetController : MonoBehaviour
 
     void FaceTarget() //Will not roll and try to face the target which is currently locked on
     {
-        Vector3 direction = (Target.transform.position - Target.transform.position).normalized;
+        Vector3 direction = (gameObj.transform.position - gameObj.transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }

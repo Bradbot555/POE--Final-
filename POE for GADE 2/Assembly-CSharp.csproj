@@ -68,17 +68,14 @@
     <Compile Include="Assets\Scripts\Controllers\TargetSphereController.cs" />
     <Compile Include="Assets\Scripts\Controllers\UnitSetter.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Helpers\PrimitiveHelper.cs" />
     <Compile Include="Assets\Scripts\MapNumbers.cs" />
     <Compile Include="Assets\Scripts\MapScale.cs" />
     <Compile Include="Assets\Scripts\MapSet.cs" />
-    <Compile Include="Assets\Scripts\MeleeUnit.cs" />
     <Compile Include="Assets\Scripts\NumberHolder.cs" />
     <Compile Include="Assets\Scripts\PlayGame.cs" />
-    <Compile Include="Assets\Scripts\RangedUnit.cs" />
+    <Compile Include="Assets\Scripts\Spawner\UnitSpawner.cs" />
     <Compile Include="Assets\Scripts\Target.cs" />
-    <Compile Include="Assets\Scripts\Unit.cs" />
-    <Compile Include="Assets\Scripts\UnitSpawner.cs" />
-    <Compile Include="Assets\Scripts\WizardUnit.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/bradi_000/Documents/GitHub/POE/POE for GADE 2/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

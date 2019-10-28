@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MapSet : MonoBehaviour
 {
-    NumberHolder NumberHolder = new NumberHolder();
+    static public NumberHolder NumberHolder = new NumberHolder();
     bool onetime = false;
     // Start is called before the first frame update
     void Start()
