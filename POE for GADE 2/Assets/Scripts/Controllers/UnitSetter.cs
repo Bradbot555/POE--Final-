@@ -96,9 +96,13 @@ public class UnitSetter : MonoBehaviour
 
     void Death()
     {
+        if (this.health <= 0)
+        {
+            isDead = true;
+        }
         if (isDead == true)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
     }
     private void Awake()
@@ -111,6 +115,7 @@ public class UnitSetter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Death();
     }
     IEnumerator MaterialSet()
     {

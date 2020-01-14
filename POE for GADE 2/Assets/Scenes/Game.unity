@@ -402,9 +402,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sensitivity: 10
-  panBorderThickness: 10
+  panBorderThickness: 0
   map: {fileID: 0}
-  followSpeed: 1
+  followSpeed: 0
 --- !u!1 &2064321204
 GameObject:
   m_ObjectHideFlags: 0

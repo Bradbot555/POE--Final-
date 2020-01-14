@@ -18,15 +18,16 @@ public class TargetController : MonoBehaviour
     IEnumerator Start()
     {
         Debug.Log(UnitSpawner.instance.Targets.Count);
-        for (int i = 0; i < UnitSpawner.instance.Targets.Count; i++)
-        {
-            Targets.Add(UnitSpawner.instance.Targets[i]);
-            Debug.Log(Targets[i]);
-        }
-        yield return new WaitForEndOfFrame();
+        
         faction = UnitSetter.instance.faction;
         speed = UnitSetter.instance.speed;
-        FindTarget();
+         for (int i = 0; i < UnitSpawner.instance.Targets.Count; i++)
+        {
+            Targets.Add(UnitSpawner.instance.Targets[i]);
+            Debug.Log("("+this.name+")["+ this.GetComponent<UnitSetter>().faction +"] ("+ Targets[i].GetComponent<UnitSetter>().name +")["+ Targets[i].GetComponent<UnitSetter>().faction+"]");
+        } 
+        yield return new WaitForSeconds(2); 
+       // FindTarget();
     }
     // Update is called once per frame
     void Update()
@@ -34,9 +35,10 @@ public class TargetController : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        ListCheck();
         FindTarget();
         Move();
-        /*if (unitSetter.range == distance)
+        if (this.GetComponent<UnitSetter>().range == distance)
         {
             inRange = true;
         }
@@ -44,7 +46,11 @@ public class TargetController : MonoBehaviour
         {
             Attack();
         }
-        else */
+        else
+        {
+            Move();
+        }
+        
     }
 
     private void Move()
@@ -97,7 +103,7 @@ public class TargetController : MonoBehaviour
 
             if (unit.GetComponent<UnitSetter>().faction == this.faction)
             {
-                Targets.RemoveAt(x);
+                Targets.Remove(Targets[x]);
             }
             else
             if (Targets[x] == null || Targets[x].Equals(null)) //If the temp unit is equal to nothing then remove it from list
@@ -134,7 +140,18 @@ public class TargetController : MonoBehaviour
     }
     void Attack()
     {
-
+        this.speed = 0;
+        gameObj.GetComponent<UnitSetter>().health = gameObj.GetComponent<UnitSetter>().health - this.gameObject.GetComponent<UnitSetter>().damage;
     }
-
+    IEnumerator ListCheck()
+    {
+        Targets.Clear();
+        for (int i = 0; i < UnitSpawner.instance.Targets.Count; i++)
+        {
+            Targets.Add(UnitSpawner.instance.Targets[i]);
+            Debug.Log(this.name + this.GetComponent<UnitSetter>().faction + Targets[i].GetComponent<UnitSetter>().name + Targets[i].GetComponent<UnitSetter>().faction);
+        }
+        yield return new WaitForEndOfFrame();
+    }
+    //test1234
 }

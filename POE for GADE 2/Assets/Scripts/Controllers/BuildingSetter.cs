@@ -72,11 +72,11 @@ public class BuildingSetter : MonoBehaviour
     {
         if (resources == 0)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
         if (isDead == true)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
     }
     private void Awake()
@@ -89,6 +89,7 @@ public class BuildingSetter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Death();
     }
     IEnumerator MaterialSet()
     {

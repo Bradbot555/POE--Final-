@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CameraControl : MonoBehaviour
 {
-    public float sensitivity = 2f;
+    public float sensitivity = 4f;
     public float panBorderThickness = 30f;
     public GameObject map;        //Public variable to store a reference to the player game object
     public float followSpeed = 5f;
