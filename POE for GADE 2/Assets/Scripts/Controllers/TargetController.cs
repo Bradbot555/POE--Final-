@@ -5,22 +5,27 @@ using UnityEngine.AI;
 
 public class TargetController : MonoBehaviour
 {
-    public static UnitSetter unitSetter;
-    public static UnitSpawner unitSpawner;
-    private int faction;
-    private float attackDelay = 1.0f;
-    private float nextDamageEvent;
-    private bool inRange = false;
-    public float lookRadius = 20f;
+    public static UnitSetter unitSetter; //Inherit
+    public static UnitSpawner unitSpawner; //Inherit 2
+    private int faction; //Unit's faction
+    private float attackDelay = 1.0f; //How long until they attack again
+    private float nextDamageEvent; //The event of attacking
+    private float currentSpeed; //What the units currentSpeed
+    private bool inRange = false; //Are they in range to attack
+    public float lookRadius = 20f; //how far they can look
     private float distance, lowestDist;
-    public GameObject TargetObj;
-    public List<GameObject> Targets = new List<GameObject>();
+    public GameObject TargetObj; //The target of this unit
+    public List<GameObject> Targets = new List<GameObject>(); //Creating the array
+
+    float wanderDelay = 2f;
+    float nextWanderCall;
     // Start is called before the first frame update
     IEnumerator Start()
     {
         unitSetter = UnitSetter.instance;
         Debug.Log(UnitSpawner.instance.Targets.Count);
         faction = UnitSetter.instance.faction;
+        currentSpeed = UnitSetter.instance.speed;
         for (int i = 0; i < UnitSpawner.instance.Targets.Count; i++)
         {
             Targets.Add(UnitSpawner.instance.Targets[i]);
@@ -63,16 +68,16 @@ public class TargetController : MonoBehaviour
         if (TargetObj == null || TargetObj.Equals(null))
         {
             FindTarget();
-            StartCoroutine(Wander());
+            Wander();
         }
         else if (lowestDist <= lookRadius)
         {
             transform.position = Vector3.MoveTowards(transform.position, TargetObj.transform.position, this.GetComponent<UnitSetter>().speed);
             //FaceTarget();
         }
-        else if (distance > lookRadius)
+        else if (currentSpeed == 0 || TargetObj == null)
         {
-            StartCoroutine(Wander());
+            Wander();
         }
     }
 
@@ -148,34 +153,40 @@ public class TargetController : MonoBehaviour
         TargetObj.GetComponent<UnitSetter>().health = TargetObj.GetComponent<UnitSetter>().health - this.gameObject.GetComponent<UnitSetter>().damage;
     }
     
-    IEnumerator Wander()
+    void Wander()
     {
         int wander = Random.Range(0, 4);
-        if (wander == 0)
+        
+        if (Time.time >= nextWanderCall)
         {
-            transform.Translate(Vector3.forward * Time.deltaTime * this.GetComponent<UnitSetter>().speed);
-            //transform.Translate(Vector3.forward * Time.deltaTime);
-            Debug.Log(this.GetComponent<UnitSetter>().ToString() + "I am wandering forward!");
-            yield return new WaitForSeconds(2);
+            nextWanderCall = Time.time + wanderDelay;
+            Vector3 pos = transform.position;
+            if (wander == 0)
+            {
+                pos.z = pos.z + 5;
+                transform.position = Vector3.MoveTowards(transform.position, pos, this.GetComponent<UnitSetter>().speed);
+                Debug.Log(this.GetComponent<UnitSetter>().ToString() + " I am wandering forward!");
+            }
+            if (wander == 1)
+            {
+                pos.x = pos.x + 5;
+                transform.position = Vector3.MoveTowards(transform.position, pos, this.GetComponent<UnitSetter>().speed);
+                Debug.Log(this.GetComponent<UnitSetter>().ToString() + " I am wandering right!");
+            }
+            if (wander == 2)
+            {
+                pos.x = pos.x - 5;
+                transform.position = Vector3.MoveTowards(transform.position, pos, this.GetComponent<UnitSetter>().speed);
+                Debug.Log(this.GetComponent<UnitSetter>().ToString() + " I am wandering left!");
+            }
+            if (wander == 3)
+            {
+                pos.z = pos.z - 5;
+                transform.position = Vector3.MoveTowards(transform.position, pos, this.GetComponent<UnitSetter>().speed);
+                Debug.Log(this.GetComponent<UnitSetter>().ToString() + " I am wandering back!");
+            }
         }
-        if (wander == 1)
-        {
-            transform.Translate(Vector3.right * Time.deltaTime);
-            Debug.Log(this.GetComponent<UnitSetter>().ToString() + "I am wandering right!");
-            yield return new WaitForSeconds(2);
-        }
-        if (wander == 2)
-        {
-            transform.Translate(Vector3.left * Time.deltaTime);
-            Debug.Log(this.GetComponent<UnitSetter>().ToString() + "I am wandering left!");
-            yield return new WaitForSeconds(2);
-        }
-        if (wander == 3)
-        {
-            transform.Translate(Vector3.back * Time.deltaTime);
-            Debug.Log(this.GetComponent<UnitSetter>().ToString() + "I am wandering back!");
-            yield return new WaitForSeconds(2);
-        }
+        
     }
 
    /* IEnumerator WaitforLoad()
