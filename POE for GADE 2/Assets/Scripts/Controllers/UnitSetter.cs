@@ -17,9 +17,9 @@ public class UnitSetter : MonoBehaviour
     public bool isDone = false;
     public string UID;
     public Image healthBar;
-    public Image unitTypeMelee;
-    public Image unitTypeWizard;
-    public Image unitTypeRanger;
+    public Image unitTypeMelee; //uhhh
+    public Image unitTypeWizard; //This is just to make sure
+    public Image unitTypeRanger; //Everyone gets an icon :)
     
     TargetController Target;
     // Start is called before the first frame update
@@ -37,7 +37,7 @@ public class UnitSetter : MonoBehaviour
     }
     void SetType() //Sets the units to a random unit type
     {
-        if (faction == 2)
+        if (faction == 2) //Wizards can only be on team 2, no traitors allowed!
         {
             this.ChangeMesh(gameObject, PrimitiveHelper.GetPrimitiveMesh(PrimitiveType.Sphere));
             this.name = "Wizard";
@@ -92,7 +92,7 @@ public class UnitSetter : MonoBehaviour
         }
         UID = System.Guid.NewGuid().ToString();
     }
-    void SetTeam()//then sets the unit to a team, however in the previous method, if their name is Wizard they get set to the team wizards automatically
+    void SetTeam()//then sets the unit to a team, however in the previous method, if their faction is 2 YOU'RE A WIZARD HARRY!
     {
         if (faction == 0)
         {
@@ -115,13 +115,13 @@ public class UnitSetter : MonoBehaviour
 
     }
 
-    public override string ToString()
+    public override string ToString() //Who am I?
     {
 
         return "UID;" + UID + "\nfaction:" + faction + "\nName: " + name;
     }
 
-    void Death()
+    void Death() //Dying is not fun here
     {
         if (this.health <= 0)
         {
@@ -132,7 +132,7 @@ public class UnitSetter : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    private void Awake()
+    private void Awake() //Are you still there?
     {
         if (instance == null)
         {
@@ -145,7 +145,7 @@ public class UnitSetter : MonoBehaviour
         HealthBarCheck();
         Death();
     }
-    IEnumerator MaterialSet()
+    IEnumerator MaterialSet() //Changing the look of the unit
     {
         Material[] materials = meshRenderer.materials;
         materials[1] = material;
@@ -155,7 +155,7 @@ public class UnitSetter : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         meshRenderer.materials = materials;
     }
-    private void ChangeMesh(GameObject pObject, Mesh pMesh)
+    private void ChangeMesh(GameObject pObject, Mesh pMesh) //Changing the look of the unit
     {
         if (pMesh == null) return;
 
@@ -166,6 +166,6 @@ public class UnitSetter : MonoBehaviour
     private void HealthBarCheck()
     {
         healthBar.fillAmount = health / MaxHealth;
-        Debug.Log(this.ToString() + " \nHealthScale:" + health / MaxHealth);
+        //Debug.Log(this.ToString() + " \nHealthScale:" + health / MaxHealth); Checking the health calcs
     }
 }

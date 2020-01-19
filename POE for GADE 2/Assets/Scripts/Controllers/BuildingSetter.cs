@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class BuildingSetter : MonoBehaviour
 {
@@ -8,10 +10,10 @@ public class BuildingSetter : MonoBehaviour
     Material[] materials;
     Material material;
     public static BuildingSetter instance;
-    public int health, faction, type, production, resources;
+    public float health, maxHealth, faction, type, production, resources;
     public bool isDead = false;
     public bool isBuilding = true;
-
+    public Image healthBar;
     TargetController Target;
     // Start is called before the first frame update
     void Start()
@@ -32,6 +34,7 @@ public class BuildingSetter : MonoBehaviour
             this.ChangeMesh(gameObject, PrimitiveHelper.GetPrimitiveMesh(PrimitiveType.Cube));
             this.name = "Factory";
             this.production = 50;
+            this.maxHealth = 200;
             this.health = 200;
             MaterialSet();
         }
@@ -39,6 +42,7 @@ public class BuildingSetter : MonoBehaviour
         {
             this.name = "Resouce Building";
             this.resources = 1000;
+            this.maxHealth = 100;
             this.health = 100;
             MaterialSet();
         }
@@ -47,6 +51,7 @@ public class BuildingSetter : MonoBehaviour
             this.ChangeMesh(gameObject, PrimitiveHelper.GetPrimitiveMesh(PrimitiveType.Cube));
             this.name = "Factory";
             this.production = 50;
+            this.maxHealth = 200;
             this.health = 200;
             MaterialSet();
         }
@@ -90,6 +95,7 @@ public class BuildingSetter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HealthBarCheck();
         Death();
     }
     IEnumerator MaterialSet()
@@ -109,5 +115,10 @@ public class BuildingSetter : MonoBehaviour
         Mesh meshInstance = Instantiate(pMesh) as Mesh;
 
         pObject.GetComponent<MeshFilter>().mesh = meshInstance;
+    }
+    private void HealthBarCheck()
+    {
+        healthBar.fillAmount = health / maxHealth;
+        //Debug.Log(this.ToString() + " \nHealthScale:" + health / maxHealth); Debugging the health checks
     }
 }

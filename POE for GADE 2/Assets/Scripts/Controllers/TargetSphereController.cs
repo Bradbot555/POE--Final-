@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class TargetSphereController : MonoBehaviour
 {
+    /*
+     * This was supposed to be the wizard AOE attack
+     * But things got complicated with that
+     * So now everything is handled by the target script
+     * this can be marked as obsolete
+     */
     // Start is called before the first frame update
     public List<Collider> TriggerList = new List<Collider>();
     Collider closestEnemy;
