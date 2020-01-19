@@ -11,13 +11,15 @@ public class UnitSetter : MonoBehaviour
 
     public static GameObject unit = null;
     public static UnitSetter instance;
-    public int health, MaxHealth, faction, type, damage;
+    public float health, MaxHealth, faction, type, damage;
     public float speed, range;
     public bool isDead = false;
     public bool isDone = false;
     public string UID;
     public Image healthBar;
-    
+    public Image unitTypeMelee;
+    public Image unitTypeWizard;
+    public Image unitTypeRanger;
     
     TargetController Target;
     // Start is called before the first frame update
@@ -46,6 +48,8 @@ public class UnitSetter : MonoBehaviour
             this.tag = "Wizards";
             this.damage = 20;
             this.range = 3f;
+            unitTypeMelee.enabled = false;
+            unitTypeRanger.enabled = false;
             MaterialSet();
         }
         else if (type == 0)
@@ -58,6 +62,8 @@ public class UnitSetter : MonoBehaviour
             this.damage = 10;
             this.range = 5f;
             MaterialSet();
+            unitTypeMelee.enabled = false;
+            unitTypeWizard.enabled = false;
         }
         else if (type == 1)
         {
@@ -68,6 +74,8 @@ public class UnitSetter : MonoBehaviour
             this.damage = 25;
             this.range = 1f;
             MaterialSet();
+            unitTypeRanger.enabled = false;
+            unitTypeWizard.enabled = false;
         }
         else
         {
@@ -79,6 +87,8 @@ public class UnitSetter : MonoBehaviour
             this.damage = 10;
             this.range = 5f;
             MaterialSet();
+            unitTypeMelee.enabled = false;
+            unitTypeWizard.enabled = false;
         }
         UID = System.Guid.NewGuid().ToString();
     }
@@ -156,6 +166,6 @@ public class UnitSetter : MonoBehaviour
     private void HealthBarCheck()
     {
         healthBar.fillAmount = health / MaxHealth;
-        Debug.Log(this.ToString() + " " + health / MaxHealth);
+        Debug.Log(this.ToString() + " \nHealthScale:" + health / MaxHealth);
     }
 }

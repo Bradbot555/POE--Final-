@@ -9,7 +9,7 @@ public class TargetController : MonoBehaviour
     public static UnitSetter unitSetter; //Inherit
     public static UnitSpawner unitSpawner; //Inherit 2
     public static NumberHolder numberHolder = new NumberHolder(); //Inherit 3
-    private int faction; //Unit's faction
+    private float faction; //Unit's faction
     private float attackDelay = 1.0f; //How long until they attack again
     private float nextDamageEvent; //The event of attacking
     private bool inRange = false; //Are they in range to attack
@@ -84,6 +84,11 @@ public class TargetController : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, lookRadius);
+        if (faction == 2)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, 3f);
+        }
     }
     void FindTarget()
     {
