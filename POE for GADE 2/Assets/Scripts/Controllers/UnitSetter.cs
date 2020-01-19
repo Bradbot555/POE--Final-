@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UnitSetter : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class UnitSetter : MonoBehaviour
     public bool isDead = false;
     public bool isDone = false;
     public string UID;
+    public Image healthBar;
     
     
     TargetController Target;
@@ -130,6 +132,7 @@ public class UnitSetter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HealthBarCheck();
         Death();
     }
     IEnumerator MaterialSet()
@@ -149,5 +152,10 @@ public class UnitSetter : MonoBehaviour
         Mesh meshInstance = Instantiate(pMesh) as Mesh;
 
         pObject.GetComponent<MeshFilter>().mesh = meshInstance;
+    }
+    private void HealthBarCheck()
+    {
+        healthBar.fillAmount = health / MaxHealth;
+        Debug.Log(this.ToString() + " " + health / MaxHealth);
     }
 }

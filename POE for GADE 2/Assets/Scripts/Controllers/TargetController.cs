@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.AI;
 
 public class TargetController : MonoBehaviour
@@ -18,6 +19,7 @@ public class TargetController : MonoBehaviour
     public GameObject TargetObj; //The target of this unit
     public List<GameObject> Targets = new List<GameObject>(); //Creating the array
     // Start is called before the first frame update
+
     IEnumerator Start()
     {
         unitSetter = UnitSetter.instance;
@@ -148,6 +150,7 @@ public class TargetController : MonoBehaviour
         //isWandering = false;
         transform.position = Vector3.MoveTowards(transform.position, TargetObj.transform.position, 0);
         TargetObj.GetComponent<UnitSetter>().health = TargetObj.GetComponent<UnitSetter>().health - this.gameObject.GetComponent<UnitSetter>().damage;
+        
     }
     
     /*void Wander() // Will fix at a later date
