@@ -18,6 +18,8 @@ public class TargetController : MonoBehaviour
     private float distance, lowestDist;
     public GameObject TargetObj; //The target of this unit
     public List<GameObject> Targets = new List<GameObject>(); //Creating the array
+    public List<Collider> TriggerList = new List<Collider>();
+    public Collider wizardAOE;
     // Start is called before the first frame update
 
     IEnumerator Start()
@@ -30,6 +32,7 @@ public class TargetController : MonoBehaviour
             Targets.Add(UnitSpawner.instance.Targets[i]);
             //Debug.Log("("+this.name+")["+ this.GetComponent<UnitSetter>().faction +"] ("+ Targets[i].GetComponent<UnitSetter>().name +")["+ Targets[i].GetComponent<UnitSetter>().faction+"]");
         }
+        wizardAOE.enabled = false;
         yield return new WaitForSeconds(2);
         // FindTarget(); 
     }
@@ -37,6 +40,10 @@ public class TargetController : MonoBehaviour
     private void FixedUpdate()
     {
         FindTarget();
+        if (this.GetComponent<UnitSetter>().faction == 2)
+        {
+            wizardAOE.enabled = true;
+        }
         //Move();
         if (this.GetComponent<UnitSetter>().range >= lowestDist)
         {
@@ -83,11 +90,24 @@ public class TargetController : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, lookRadius);
-        if (faction == 2)
+        Gizmos.DrawWireSphere(transform.position, lookRadius); //draws the look distance in inspector mode
+        if (this.GetComponent<UnitSetter>().faction == 2)
         {
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(transform.position, 3f);
+            Gizmos.DrawWireSphere(transform.position, 3f); //Wizard attack range visual
+            
+        }
+        else
+        if (this.GetComponent<UnitSetter>().type == 0)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, 5f); //Ranger attack range visual
+        }
+        else
+        if (this.GetComponent<UnitSetter>().type == 1)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, 1f); //Melee attack range visual
         }
     }
     void FindTarget()
@@ -97,7 +117,7 @@ public class TargetController : MonoBehaviour
             return;
         }
         lowestDist = lookRadius;
-
+        
         for (int x = Targets.Count - 1; x >= 0; x--) //loops through the List for targets from end of list to begnning as we may remove items
         {
             GameObject unit = Targets[x];
@@ -132,11 +152,18 @@ public class TargetController : MonoBehaviour
                 
                 if (this.GetComponent<UnitSetter>().faction == unit.GetComponent<UnitSetter>().faction)
                 {
-                    Debug.Log(this.GetComponent<UnitSetter>().ToString() + "| ==->~} |" + unit.GetComponent<UnitSetter>().ToString());
+                    Debug.Log(this.GetComponent<UnitSetter>().ToString() + "| ==->~} |" + unit.GetComponent<UnitSetter>().ToString()); //Debugging pup
                 }
                 
             }
             
+        }
+        if (TargetObj == null)
+        {
+            for (int i = 0; i < BuildingSpawner.instance.Targets.Count; i++)
+            {
+                Targets.Add(BuildingSpawner.instance.Targets[i]);
+            }
         }
     }
     private void GetDistance(GameObject tempUnit)
@@ -152,12 +179,38 @@ public class TargetController : MonoBehaviour
     }*/
     void Attack() 
     {
-        //isWandering = false;
         transform.position = Vector3.MoveTowards(transform.position, TargetObj.transform.position, 0);
-        TargetObj.GetComponent<UnitSetter>().health = TargetObj.GetComponent<UnitSetter>().health - this.gameObject.GetComponent<UnitSetter>().damage;
-        
+
+        if (wizardAOE.enabled == true)
+        {
+            for (int x = TriggerList.Count - 1; x >= 0; x--)
+            {
+                TriggerList[x].GetComponent<UnitSetter>().health = TriggerList[x].GetComponent<UnitSetter>().health - this.gameObject.GetComponent<UnitSetter>().damage;
+            }
+        }
+        else
+        {
+            TargetObj.GetComponent<UnitSetter>().health = TargetObj.GetComponent<UnitSetter>().health - this.gameObject.GetComponent<UnitSetter>().damage;
+        }
+        //isWandering = false;
     }
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!TriggerList.Contains(other))
+        {
+            TriggerList.Add(other);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (TriggerList.Contains(other))
+        {
+            TriggerList.Remove(other);
+        }
+    }
+
     /*void Wander() // Will fix at a later date
     {
         Vector3 pos = new Vector3(Random.Range(0, NumberHolder.MapX), 1, Random.Range(0, NumberHolder.MapY));
@@ -169,17 +222,17 @@ public class TargetController : MonoBehaviour
         }
     }*/
 
-   /* IEnumerator WaitforLoad()
-    {
-        if (this.GetComponent<UnitSetter>().isDone == false)
-        {
-            yield return new WaitForSeconds(2);
-        }
-        else
-        {
-            
-            //currentSpeed = UnitSetter.instance.speed;
-        }
-    } */
+    /* IEnumerator WaitforLoad()
+     {
+         if (this.GetComponent<UnitSetter>().isDone == false)
+         {
+             yield return new WaitForSeconds(2);
+         }
+         else
+         {
+
+             //currentSpeed = UnitSetter.instance.speed;
+         }
+     } */
     //test1234
 }

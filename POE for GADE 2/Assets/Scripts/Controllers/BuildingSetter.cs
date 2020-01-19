@@ -10,6 +10,7 @@ public class BuildingSetter : MonoBehaviour
     public static BuildingSetter instance;
     public int health, faction, type, production, resources;
     public bool isDead = false;
+    public bool isBuilding = true;
 
     TargetController Target;
     // Start is called before the first frame update
