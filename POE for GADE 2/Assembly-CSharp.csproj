@@ -79,31 +79,31 @@
     <Compile Include="Assets\Scripts\Spawner\UnitSpawner.cs" />
     <Compile Include="Assets\Scripts\Target.cs" />
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>C:/Users/bradi_000/Documents/GitHub/POE/POE for GADE 2/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>D:/Uni/2019/GADE/OLD/POE/POE for GADE 2/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>C:/Users/bradi_000/Documents/GitHub/POE/POE for GADE 2/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>D:/Uni/2019/GADE/OLD/POE/POE for GADE 2/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/bradi_000/Documents/GitHub/POE/POE for GADE 2/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/Uni/2019/GADE/OLD/POE/POE for GADE 2/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Users/bradi_000/Documents/GitHub/POE/POE for GADE 2/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>D:/Uni/2019/GADE/OLD/POE/POE for GADE 2/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>C:/Users/bradi_000/Documents/GitHub/POE/POE for GADE 2/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>D:/Uni/2019/GADE/OLD/POE/POE for GADE 2/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/bradi_000/Documents/GitHub/POE/POE for GADE 2/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>D:/Uni/2019/GADE/OLD/POE/POE for GADE 2/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>C:/Users/bradi_000/Documents/GitHub/POE/POE for GADE 2/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>D:/Uni/2019/GADE/OLD/POE/POE for GADE 2/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/bradi_000/Documents/GitHub/POE/POE for GADE 2/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/Uni/2019/GADE/OLD/POE/POE for GADE 2/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Users/bradi_000/Documents/GitHub/POE/POE for GADE 2/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>D:/Uni/2019/GADE/OLD/POE/POE for GADE 2/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/UnityHub/2019.2.10f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
